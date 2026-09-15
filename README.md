@@ -1,59 +1,87 @@
-Login System with Attempt Blocking
-A C++ console application that simulates a secure login system with user blocking, security alerts, and a detailed failure rate report.
+[C-Login-Project-README.md](https://github.com/user-attachments/files/32221658/C-Login-Project-README.md)
+# C++ Login System with Attempt Blocking
 
-*Description
+A C++ console application that simulates a secure login system with per-user attempt blocking, session-wide security alerts, and an automatic failure-rate security report — built as an introduction to core cybersecurity concepts in C++.
 
-This program implements a multi-user login system that tracks failed login attempts per user, detects suspicious activity across sessions, and generates a security report when the failure rate exceeds a defined threshold.
+## Description
 
-* Features
+This program implements a multi-user login flow that:
 
-Multi-user login with predefined credentials
-Per-user attempt tracking — blocks a specific user after 3 failed attempts
-Global session tracking — monitors every login attempt across all users
-Security alert — triggers after 5 consecutive attempts in a session
-Failure rate calculation — if the failure rate exceeds 60%, the system locks down and prints a full security report
-Login history log — stores usernames, passwords, and status (CONFIRMED / FAILED) for each attempt
+- Tracks failed login attempts **per user**
+- Detects suspicious activity **across the whole session** (not just per user)
+- Automatically generates a detailed security report when the overall failure rate crosses a defined threshold
 
-* Requirements
+## Features
 
-A C++ compiler (g++, clang++, or MSVC)
+- **Multi-user login** with a set of predefined credentials
+- **Per-user attempt tracking** — a user is flagged/blocked after 3 failed attempts
+- **Global session tracking** — every login attempt across all users is monitored
+- **Security alert** — triggered after 5 consecutive failed attempts in a session
+- **Failure-rate calculation** — if the failure rate exceeds 60%, the system locks down and prints a full security report
+- **Login history log** — records username, password entered, and status (`CONFIRMED` / `FAILED`) for each attempt
 
-* Valid Credentials (for testing)
+## Security rules
 
-Username   Password
-admin      HardPass123*
-user1      Pass456!
-user2      Secret789!
+| Rule | Behavior |
+|---|---|
+| 3 failed attempts for a user | That user is flagged as blocked |
+| 5 consecutive failed attempts in the session | Security alert is displayed |
+| Failure rate > 60% | System locks down and prints the full security report |
+| Failure rate ≤ 60% | Counters reset, session continues normally |
 
+## Example security report
 
-Security Rules
-RuleBehavior3 failed attempts for a userThat user gets flagged as blocked5 consecutive attempts in sessionSecurity alert is displayedFailure rate > 60%System shuts down and prints full security reportFailure rate ≤ 59%Counters reset, session continues normally
+When the failure rate exceeds 60%, the system prints a report like this:
 
-Security Report Example
-When the failure rate exceeds 60%, the system outputs a report like this:
-
+```
 ========== SECURITY REPORT ==========
 --- Record #1 ---
- User: admin
- | Password: wrongpass
- | Status: FAILED
-
------------------------------------------
-
+User: admin | Password: wrongpass | Status: FAILED
+...
 Successful attempts: 1
- Failure rate: 80%
- ***ALERT: HIGH FAILURE RATE - POSSIBLE ATTACK***
+Failure rate: 80%
+ALERT: HIGH FAILURE RATE - POSSIBLE ATTACK
+```
 
- Limitations
+## Getting started
 
-Credentials are hardcoded in the source file
-History log is limited to 5 entries per session (array size)
-No persistent storage — all data is lost when the program exits
-No password hashing (this is a learning/demo project)
+### Requirements
 
-Concepts Practiced
+A C++ compiler (`g++`, `clang++`, or MSVC).
 
-Arrays and loops in C++
-Boolean logic and conditionals
-String comparison
-Security concepts: attempt limiting, failure rate, session tracking
+### Build & run
+
+```bash
+git clone https://github.com/AndresMoPl/C-Login-Project.git
+cd C-Login-Project
+g++ Login.cpp -o login
+./login
+```
+
+### Test credentials
+
+| Username | Password |
+|---|---|
+| `admin` | `HardPass123*` |
+| `user1` | `Pass456!` |
+| `user2` | `Secret789!` |
+
+## Concepts practiced
+
+- Arrays and loops in C++
+- Boolean logic and conditionals
+- String comparison
+- Basic security concepts: attempt limiting, failure-rate analysis, session tracking
+
+## Known limitations
+
+This is a learning/demo project, not production security software:
+
+- Credentials are hardcoded in the source file
+- The history log is limited to 5 entries per session (fixed-size array)
+- No persistent storage — all data is lost when the program exits
+- No password hashing
+
+## Author
+
+**Andrés Mora** — [@AndresMoPl](https://github.com/AndresMoPl)
